@@ -1,8 +1,8 @@
 async function main() {
   await Tone.start();
 
-  const mysound = sine_tone();
 
+  mysound = sine_tone();
   mysound.connect(Tone.Destination);
 }
 
@@ -13,6 +13,13 @@ document.getElementById("playButton").addEventListener("click", () => {
   main();
 });
 
+document.getElementById("stopButton").addEventListener("click", () => {
+  if (mysound) {
+    mysound.stop();
+    console.log("Sound Stopped");
+  }
+});
+
 function sine_tone(frequency = 440, amplitude = 0.5) {
   return new Tone.Oscillator({
     type: "sine",
@@ -20,5 +27,6 @@ function sine_tone(frequency = 440, amplitude = 0.5) {
     volume: Tone.gainToDb(amplitude),
   }).start();
 }
+
 
 
