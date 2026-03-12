@@ -1,31 +1,17 @@
-let mysound = null;
+let mySound = null;
 
 async function main() {
   await Tone.start();
 
   const selectedWave = document.getElementById("selectWave").value;
 
-  if (selectedWave === "sineWave") {
-    mysound = sine_wave();
-  }
-  else if (selectedWave === "triangleWave") {
-    mysound = triangle_wave();
-  }
-  else if (selectedWave === "squareWave") {
-    mysound = square_wave();
-  }
+  const frequencyValue = parseFloat(document.getElementById("frequencyInput").value);
+  const amplitudeValue = parseFloat(document.getElementById("amplitudeInput").value);
+  const durationValue = parseFloat(document.getElementById("durationInput").value);
 
-  else if (selectedWave === "sawtoothWave") {
-    mysound = sawtooth_wave();
-  }
+  mySound = generate_wave(selectedWave, frequencyValue, amplitudeValue, durationValue);
 
-  else {
-    console.log("Select a wave")
-    return;
-  }
-
-
-  mysound.connect(Tone.Destination);
+  mySound.connect(Tone.Destination);
 }
 
 document.getElementById("playButton").addEventListener("click", () => {
@@ -39,35 +25,16 @@ document.getElementById("stopButton").addEventListener("click", () => {
   if (mysound) {
     mysound.stop();
   }
-});
+}); 
 
-function sine_wave(frequency = 440, amplitude = 0.5) {
-  return new Tone.Oscillator({
-    type: "sine",
+function generate_wave(waveType, frequency, amplitude, duration) {
+  const osc = new Tone.Oscillator({
+    type: waveType,
     frequency: frequency,
     volume: Tone.gainToDb(amplitude),
-  }).start();
-}
+  });
 
-function sawtooth_wave(frequency = 440, amplitude = 0.5) {
-  return new Tone.Oscillator({
-    type: "sawtooth",
-    frequency: frequency,
-    volume: Tone.gainToDb(amplitude),
-  }).start();
-}
-function triangle_wave(frequency = 440, amplitude = 0.5) {
-  return new Tone.Oscillator({
-    type: "triangle",
-    frequency: frequency,
-    volume: Tone.gainToDb(amplitude),
-  }).start();
-}
-function square_wave(frequency = 440, amplitude = 0.5) {
-    return new Tone.Oscillator({
-      type: "square",
-      frequency: frequency,
-      volume: Tone.gainToDb(amplitude),
-    }).start();
-  }
+  osc.start().stop("+" + duration);
 
+  return osc;
+}

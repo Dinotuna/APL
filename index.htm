@@ -13,18 +13,39 @@
 
     <head>
 
-        <button id="playButton">Play sound</button>
-        <button id="stopButton">Stop sound</button>
+        <div class="buttonDiv">
 
-        <select id="selectWave">
+            <button id="playButton">Play sound</button>
+            <button id="stopButton">Stop sound</button>
 
-            <option>Choose a wave</option>
-            <option value="sineWave">Sine wave</option>
-            <option value="triangleWave">Triangle wave</option>
-            <option value="squareWave">Square wave</option>
-            <option value="sawtoothWave">Sawtooth wave</option>
-        
-        </select>
+        </div>
+
+        <div class="waveDiv">
+
+            <select id="selectWave">
+
+                <option value="" disabled selected>Choose a wave</option>
+                <option value="sine">Sine wave</option>
+                <option value="triangle">Triangle wave</option>
+                <option value="square">Square wave</option>
+                <option value="sawtooth">Sawtooth wave</option>
+            
+            </select>
+
+            <label>Frequency
+                <input type="number" id="frequencyInput" value="440">
+            </label>
+
+            <label>Amplitude
+                <input type="number" id="amplitudeInput" value="0.5" step="0.1" min="0" max="1">
+            </label>
+
+            <label>Duration
+                <input type="number" id="durationInput" value="2.0" step="0.5" min="0.1">
+            </label>
+
+        </div>
+
     </head>
     
 </body>
