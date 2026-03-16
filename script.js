@@ -41,11 +41,30 @@ document.getElementById("playButton").addEventListener("click", () => {
 });
 
 document.getElementById("stopButton").addEventListener("click", () => {
-  if (mysound) {
-    mysound.stop();
+  if (mySound) {
+    mySound.stop();
     mySound.dispose();
+    mySound = null;
   }
 }); 
+
+document.getElementById("modulationFrequency").addEventListener("input", (e) => {
+  if (mySound && mySound.modulationFrequency) {
+    mySound.modulationFrequency.value = parseFloat(e.target.value);
+  }
+});
+
+document.getElementById("frequencyInput").addEventListener("input", (e) => {
+  if (mySound && mySound.frequency) {
+    mySound.frequency.value = parseFloat(e.target.value);
+  }
+});
+
+document.getElementById("amplitudeInput").addEventListener("input", (e) => {
+  if (mySound) {
+    mySound.volume.value = Tone.gainToDb(parseFloat(e.target.value));
+  }
+});
 
 function generate_wave(waveType, frequency, amplitude, duration) {
   const osc = new Tone.Oscillator({
@@ -58,12 +77,11 @@ function generate_wave(waveType, frequency, amplitude, duration) {
   return osc;
 }
 
-function generate_am_wave(waveType, frequency, amplitude, duration, modulationFrequency, modWave) {
+function generate_am_wave(waveType, amplitude, duration, modulationFrequency, modWave) {
   const osc = new Tone.AMOscillator({
     type: waveType,
-    frequency: frequency,
+    frequency: modulationFrequency,
     volume: Tone.gainToDb(amplitude),
-    modulationFrequency: modulationFrequency,
     modulationType: modWave,
   });
 
@@ -71,13 +89,13 @@ function generate_am_wave(waveType, frequency, amplitude, duration, modulationFr
   return osc;
 }
 
-function generate_fm_wave(waveType, frequency, amplitude, duration, modulationFrequency, modWave) {
+function generate_fm_wave(waveType, amplitude, duration, modulationFrequency, modWave) {
   const osc = new Tone.FMOscillator({
     type: waveType,
-    frequency: frequency,
+    frequency: modulationFrequency,
     volume: Tone.gainToDb(amplitude),
-    modulationFrequency: modulationFrequency,
     modulationType: modWave,
+    modulationIndex: 10
   });
 
   osc.start().stop("+" + duration);
