@@ -5,21 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
     <script src="http://unpkg.com/tone"></script>
+    <script defer src="script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 </head>
 <body>
-
+    <div class="gridBox">
 
         <div class="buttonDiv">
 
-            <button id="playButton">Play sound</button>
-            <button id="stopButton">Stop sound</button>
+            <button class="buttonGrow" id="playButton">Play sound</button>
+            <button class="buttonGrow" id="stopButton">Stop sound</button>
 
         </div>
 
         <div class="waveDiv">
+
+            <h3>Sound Waves</h3>
 
             <select id="selectWave">
 
@@ -63,7 +68,7 @@
                     <input type="number" id="modulationFrequency" value="4" step="0.5" min="0.1">
                 </label>
 
-                <label>Modulator Wave
+                <label>
                     <select id="selectModulatorWave">
                         <option value="" disabled selected>Choose a modulation wave</option>
                         <option value="sine">Sine wave</option>
@@ -76,6 +81,30 @@
             </div>
 
         </div>
-    
+
+        <div class="adsrControls">
+
+            <h3>ADSR Envelope</h3>
+
+            
+            <label>Attack
+                <input type="number" id="attackADSRInput" value="1">
+            </label>
+
+            <label>Duration
+                <input type="number" id="durationADSRInput" value="1">
+            </label>
+
+            <label>Sustain
+                <input type="number" id="sustainADSRInput" value="1">
+            </label>
+            
+            <label>Release
+                <input type="number" id="releaseADSRInput" value="1">
+            </label>
+
+        </div>
+
+    </div>
 </body>
 </html>

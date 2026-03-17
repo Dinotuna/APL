@@ -9,7 +9,7 @@ async function main() {
   const amplitudeValue = parseFloat(document.getElementById("amplitudeInput").value);
   const durationValue = parseFloat(document.getElementById("durationInput").value);
   const modulationType = document.querySelector('input[name="modulationType"]:checked').value;
-  const modFrequency = parseFloat(document.getElementById("modulationFrequency").value);
+  const modulationFrequency = parseFloat(document.getElementById("modulationFrequency").value);
   const modWave = document.getElementById("selectModulatorWave").value;
 
   if (mySound) {
@@ -19,10 +19,10 @@ async function main() {
 
   switch (modulationType) {
     case "am":
-      mySound = generate_am_wave(selectedWave, frequencyValue, amplitudeValue, durationValue, modFrequency, modWave);
+      mySound = generate_am_wave(selectedWave, frequencyValue, amplitudeValue, durationValue, modulationFrequency, modWave);
       break;
     case "fm":
-      mySound = generate_fm_wave(selectedWave, frequencyValue, amplitudeValue, durationValue, modFrequency, modWave);
+      mySound = generate_fm_wave(selectedWave, frequencyValue, amplitudeValue, durationValue, modulationFrequency, modWave);
       break;
     default:
       mySound = generate_wave(selectedWave, frequencyValue, amplitudeValue, durationValue);
@@ -77,11 +77,12 @@ function generate_wave(waveType, frequency, amplitude, duration) {
   return osc;
 }
 
-function generate_am_wave(waveType, amplitude, duration, modulationFrequency, modWave) {
+function generate_am_wave(waveType, frequency, amplitude, duration, modulationFrequency, modWave) {
   const osc = new Tone.AMOscillator({
     type: waveType,
-    frequency: modulationFrequency,
+    frequency: frequency,
     volume: Tone.gainToDb(amplitude),
+    harmonicity: (modulationFrequency / frequency),
     modulationType: modWave,
   });
 
@@ -89,13 +90,14 @@ function generate_am_wave(waveType, amplitude, duration, modulationFrequency, mo
   return osc;
 }
 
-function generate_fm_wave(waveType, amplitude, duration, modulationFrequency, modWave) {
+function generate_fm_wave(waveType, frequency, amplitude, duration, modulationFrequency, modWave) {
   const osc = new Tone.FMOscillator({
     type: waveType,
-    frequency: modulationFrequency,
+    frequency: frequency,
     volume: Tone.gainToDb(amplitude),
+    harmonicity: (modulationFrequency / frequency),
     modulationType: modWave,
-    modulationIndex: 10
+    modulationIndex: 10,
   });
 
   osc.start().stop("+" + duration);

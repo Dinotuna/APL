@@ -1,23 +1,107 @@
+* {
+  border-width: 1px;
+  border-radius: 5px;
+}
+
+body {
+    background-color: whitesmoke;
+}
+
+.gridBox {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto ;
+  border-width: 1px;
+  border-radius: 5px;
+
+}
+
 .waveDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  grid-column: 1;
+  grid-row: 2;
+  background-color: white;
+  margin: 5px;
+  padding: 10px;
+  border-style: solid;
+  border-color: rgb(212, 205, 205);
+}
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}    
-
-.waveDiv label, select{
-
-    margin: 5px;
+.waveDiv label,
+select {
+  margin: 5px;
 }
 
 .buttonDiv {
-
-    display: flex;
-    justify-content: center;
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  margin: 5px;
+  padding: 10px;
+  border-style: solid;
+  border-color: rgb(212, 205, 205);
 }
 
-.buttonDiv button{
+.buttonDiv button {
+  margin: 5px;
+  padding: 6px 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  background-color: white;
+  border-style: solid;
+  border-color: rgb(212, 205, 205);
+}
 
-    margin: 5px;
+#playButton {
+  color: white;
+  background-color: #3cb371;
+}
 
+#stopButton {
+  background-color: #cd5c5c;
+  color: white;
+}
+.buttonGrow {
+  display: inline-block;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #333;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.buttonGrow:hover {
+  transform: scale(1.05);
+}
+
+.modulationDiv {
+  display: flex;
+  flex-direction: column;
+  grid-column: 2;
+  grid-row: 2;
+  background-color: white;
+  margin: 5px;
+  padding: 10px;
+  border-style: solid;
+  border-color: rgb(212, 205, 205);
+}
+
+.adsrControls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  grid-column: 3;
+  grid-row: 2;
+  background-color: white;
+  margin: 5px;
+  padding: 10px;
+  border-style: solid;
+  border-color: rgb(212, 205, 205);
 }
