@@ -9,7 +9,6 @@
     <script defer src="script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -86,21 +85,24 @@
 
             <h3>ADSR Envelope</h3>
 
+            <label>
+                <input type="checkbox"id="adsrToggle"> Toggle ADSR
+            </label>
             
             <label>Attack
-                <input type="number" id="attackADSRInput" value="1">
+                <input type="number" id="attackInput" value="1">
             </label>
 
-            <label>Duration
-                <input type="number" id="durationADSRInput" value="1">
+            <label>Decay
+                <input type="number" id="decayInput" value="1">
             </label>
 
             <label>Sustain
-                <input type="number" id="sustainADSRInput" value="1">
+                <input type="number" id="sustainInput" value="1">
             </label>
             
             <label>Release
-                <input type="number" id="releaseADSRInput" value="1">
+                <input type="number" id="releaseInput" value="1">
             </label>
 
         </div>

@@ -1,20 +1,21 @@
 * {
   border-width: 1px;
   border-radius: 5px;
+  
 }
 
 body {
     background-color: whitesmoke;
+    
 }
 
 .gridBox {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto auto ;
-  border-width: 1px;
-  border-radius: 5px;
 
 }
+
 
 .waveDiv {
   display: flex;
@@ -47,7 +48,7 @@ select {
 
 .buttonDiv button {
   margin: 5px;
-  padding: 6px 10px;
+  padding: 4px 8px;
   font-size: 16px;
   border-radius: 10px;
   border: 1px solid lightgray;
@@ -58,18 +59,17 @@ select {
 }
 
 #playButton {
-  color: white;
-  background-color: #3cb371;
+  color: black;
+  background-color: white;
 }
 
 #stopButton {
-  background-color: #cd5c5c;
-  color: white;
+  background-color: white;
+  color: black;
 }
 .buttonGrow {
-  display: inline-block;
+  display: inline-block;    
   padding: 10px;
-  font-size: 14px;
   border: 1px solid #333;
   cursor: pointer;
   transition: transform 0.2s ease;

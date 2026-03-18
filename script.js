@@ -1,4 +1,5 @@
 let mySound = null;
+let myEnvelope = null;
 
 async function main() {
   await Tone.start();
@@ -11,10 +12,20 @@ async function main() {
   const modulationType = document.querySelector('input[name="modulationType"]:checked').value;
   const modulationFrequency = parseFloat(document.getElementById("modulationFrequency").value);
   const modWave = document.getElementById("selectModulatorWave").value;
+  const attackInput = parseFloat(document.getElementById("attackInput").value);
+  const decayInput = parseFloat(document.getElementById("decayInput").value);
+  const sustainInput = parseFloat(document.getElementById("sustainInput").value);
+  const releaseInput = parseFloat(document.getElementById("releaseInput").value);
+  const adsrToggle = document.getElementById("adsrToggle").checked;
 
   if (mySound) {
     mySound.stop();
     mySound.dispose();
+    mySound = null;
+  }
+  if (myEnvelope) {
+    myEnvelope.dispose();
+    myEnvelope = null;
   }
 
   switch (modulationType) {
@@ -28,9 +39,18 @@ async function main() {
       mySound = generate_wave(selectedWave, frequencyValue, amplitudeValue, durationValue);
       break;
   }
+if (adsrToggle) {
+  myEnvelope = apply_amplitude_envelope(attackInput, decayInput, sustainInput, releaseInput);
+  mySound.connect(myEnvelope);
+  myEnvelope.connect(Tone.Destination);
+  myEnvelope.triggerAttackRelease(durationValue);
+} else {
+    mySound.connect(Tone.Destination);
+    mySound.stop("+" + durationValue);
+}
 
 
-  mySound.connect(Tone.Destination);
+
 }
 
 document.getElementById("playButton").addEventListener("click", () => {
@@ -49,8 +69,9 @@ document.getElementById("stopButton").addEventListener("click", () => {
 }); 
 
 document.getElementById("modulationFrequency").addEventListener("input", (e) => {
-  if (mySound && mySound.modulationFrequency) {
-    mySound.modulationFrequency.value = parseFloat(e.target.value);
+  if (mySound && mySound.harmonicity) {
+    const freq = parseFloat(document.getElementById("frequencyInput").value);
+    mySound.harmonicity.value = parseFloat(e.target.value) / freq;
   }
 });
 
@@ -73,7 +94,7 @@ function generate_wave(waveType, frequency, amplitude, duration) {
     volume: Tone.gainToDb(amplitude),
   });
 
-  osc.start().stop("+" + duration);
+  osc.start();
   return osc;
 }
 
@@ -86,7 +107,7 @@ function generate_am_wave(waveType, frequency, amplitude, duration, modulationFr
     modulationType: modWave,
   });
 
-  osc.start().stop("+" + duration);
+  osc.start();
   return osc;
 }
 
@@ -100,6 +121,17 @@ function generate_fm_wave(waveType, frequency, amplitude, duration, modulationFr
     modulationIndex: 10,
   });
 
-  osc.start().stop("+" + duration);
+  osc.start();
   return osc;
+}
+
+function apply_amplitude_envelope(attackInput, decayInput, sustaininput, releaseInput) {
+  const ampEnv = new Tone.AmplitudeEnvelope({
+    attack: attackInput,
+    decay: decayInput,
+    sustain: sustaininput,
+    release: releaseInput,
+  });
+
+  return ampEnv;
 }
