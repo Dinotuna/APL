@@ -106,3 +106,44 @@ select, input {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 2px;
 }
+.pianoContainer {
+    display: flex;
+    justify-content: center;
+    grid-column: 1 / -1;
+    grid-row: 3;
+
+}
+
+.pianoKeysList {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    
+}
+
+.piano-keys {
+    width: 3rem;
+    height: 15rem;
+    position: relative;
+    padding: 2px;
+    cursor: pointer;
+
+}
+
+.white-key {
+    background-color: #f2e3e3;
+    margin: 0px 0px 8px 8px;
+}
+
+.black-key {
+    width: 1.5rem;
+    height: 8.5rem;
+    border-radius: 5px;
+    border: 4px solid white;
+    border-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    background-color: #000;
+    z-index: 2;
+    margin: 0 -20px 0 -20px;
+}

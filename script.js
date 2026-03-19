@@ -1,12 +1,13 @@
 let mySound = null;
 let myEnvelope = null;
 
-async function main() {
+async function main(customFrequency = null) {
   await Tone.start();
 
   const selectedWave = document.getElementById("selectWave").value;
-
-  const frequencyValue = parseFloat(document.getElementById("frequencyInput").value);
+  const frequencyValue =  customFrequency !== null
+    ? customFrequency
+    : parseFloat(document.getElementById("frequencyInput").value);
   const amplitudeValue = parseFloat(document.getElementById("amplitudeInput").value);
   const durationValue = parseFloat(document.getElementById("durationInput").value);
   const modulationType = document.querySelector('input[name="modulationType"]:checked').value;
@@ -68,6 +69,19 @@ document.getElementById("stopButton").addEventListener("click", () => {
   }
 }); 
 
+const pianoKeys = document.querySelectorAll(".piano-keys");
+
+pianoKeys.forEach((key, index) => {
+  key.addEventListener("mousedown", () => {
+    if (Tone.context.state === "closed") {
+      Tone.context = new Tone.Context();
+    }
+    const baseFreqC4 = 261.63; 
+    const keyFrequency = baseFreqC4 * Math.pow(2, index / 12);
+    main(keyFrequency);
+  });
+});
+
 document.getElementById("modulationFrequency").addEventListener("input", (e) => {
   if (mySound && mySound.harmonicity) {
     const freq = parseFloat(document.getElementById("frequencyInput").value);
@@ -97,7 +111,7 @@ function generate_wave(waveType, frequency, amplitude, duration) {
   osc.start();
   return osc;
 }
-
+    
 function generate_am_wave(waveType, frequency, amplitude, duration, modulationFrequency, modWave) {
   const osc = new Tone.AMOscillator({
     type: waveType,
