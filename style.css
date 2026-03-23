@@ -9,7 +9,7 @@ body {
 
 }
 
-.waveDiv, .modulationDiv, .adsrControls, .buttonDiv {
+.waveDiv, .modulationDiv, .adsrControls, .buttonDiv, .pianoContainer, .filterDiv {
   background-color: white;
   border-radius: 5px;
   border: 1px solid #e5e8ec;
@@ -21,7 +21,7 @@ body {
   flex-direction: column;
   align-items: flex-start;
   grid-column: 1;
-  grid-row: 2;
+  grid-row: 3;
   background-color: white;
   margin: 5px;
   padding: 10px;
@@ -78,7 +78,7 @@ select {
   display: flex;
   flex-direction: column;
   grid-column: 2;
-  grid-row: 2;
+  grid-row: 3;
   background-color: white;
   margin: 5px;
   padding: 10px;
@@ -90,7 +90,7 @@ select {
     flex-direction: column;
     justify-content: space-around;
     grid-column: 3;
-    grid-row: 2;
+    grid-row: 3;
     background-color: white;
     margin: 5px;
     padding: 10px;
@@ -109,8 +109,11 @@ select, input {
 .pianoContainer {
     display: flex;
     justify-content: center;
+    background-color: white;
     grid-column: 1 / -1;
-    grid-row: 3;
+    grid-row: 2;
+    margin: 5px;
+    padding: 10px;
 
 }
 
@@ -146,4 +149,15 @@ select, input {
     background-color: #000;
     z-index: 2;
     margin: 0 -20px 0 -20px;
+}
+
+.filterDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  grid-column: 1;
+  grid-row: 4;
+  background-color: white;
+  margin: 5px;
+  padding: 10px;
 }

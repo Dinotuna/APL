@@ -18,7 +18,9 @@ async function main(customFrequency = null) {
   const sustainInput = parseFloat(document.getElementById("sustainInput").value);
   const releaseInput = parseFloat(document.getElementById("releaseInput").value);
   const adsrToggle = document.getElementById("adsrToggle").checked;
-
+  const useHarmonicity = document.getElementById("harmonicityToggle").checked;
+  const calculatedHarmonicity = useHarmonicity ? modulationFrequency : (modulationFrequency / frequencyValue);
+  
   if (mySound) {
     mySound.stop();
     mySound.dispose();
@@ -31,10 +33,10 @@ async function main(customFrequency = null) {
 
   switch (modulationType) {
     case "am":
-      mySound = generate_am_wave(selectedWave, frequencyValue, amplitudeValue, durationValue, modulationFrequency, modWave);
+      mySound = generate_am_wave(selectedWave, frequencyValue, amplitudeValue, durationValue, calculatedHarmonicity, modWave);
       break;
     case "fm":
-      mySound = generate_fm_wave(selectedWave, frequencyValue, amplitudeValue, durationValue, modulationFrequency, modWave);
+      mySound = generate_fm_wave(selectedWave, frequencyValue, amplitudeValue, durationValue, calculatedHarmonicity, modWave);
       break;
     default:
       mySound = generate_wave(selectedWave, frequencyValue, amplitudeValue, durationValue);
@@ -84,8 +86,15 @@ pianoKeys.forEach((key, index) => {
 
 document.getElementById("modulationFrequency").addEventListener("input", (e) => {
   if (mySound && mySound.harmonicity) {
-    const freq = parseFloat(document.getElementById("frequencyInput").value);
-    mySound.harmonicity.value = parseFloat(e.target.value) / freq;
+    const val = parseFloat(e.target.value);
+    const useHarmonicity = document.getElementById("harmonicityToggle").checked;
+    
+    if (useHarmonicity) {
+      mySound.harmonicity.value = val;
+    } else {
+      const freq = parseFloat(document.getElementById("frequencyInput").value);
+      mySound.harmonicity.value = val / freq;
+    }
   }
 });
 
@@ -112,12 +121,12 @@ function generate_wave(waveType, frequency, amplitude, duration) {
   return osc;
 }
     
-function generate_am_wave(waveType, frequency, amplitude, duration, modulationFrequency, modWave) {
+function generate_am_wave(waveType, frequency, amplitude, duration, calculatedHarmonicity, modWave) {
   const osc = new Tone.AMOscillator({
     type: waveType,
     frequency: frequency,
     volume: Tone.gainToDb(amplitude),
-    harmonicity: (modulationFrequency / frequency),
+    harmonicity: calculatedHarmonicity,
     modulationType: modWave,
   });
 
@@ -125,12 +134,12 @@ function generate_am_wave(waveType, frequency, amplitude, duration, modulationFr
   return osc;
 }
 
-function generate_fm_wave(waveType, frequency, amplitude, duration, modulationFrequency, modWave) {
+function generate_fm_wave(waveType, frequency, amplitude, duration, calculatedHarmonicity, modWave) {
   const osc = new Tone.FMOscillator({
     type: waveType,
     frequency: frequency,
     volume: Tone.gainToDb(amplitude),
-    harmonicity: (modulationFrequency / frequency),
+    harmonicity: calculatedHarmonicity,
     modulationType: modWave,
     modulationIndex: 10,
   });
