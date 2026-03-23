@@ -121,14 +121,18 @@
                 <input type="radio" name="filterType" value="none" checked> No Filter
             </label>
             <label>
-                <input type="radio" name="filterType" value="lowPass"> Low-pass Filter
+                <input type="radio" name="filterType" value="lowpass"> Low-pass Filter
             </label>
             <label>
-                <input type="radio" name="filterType" value="highPass"> High-pass Filter
+                <input type="radio" name="filterType" value="highpass"> High-pass Filter
             </label>
 
             <label>
-                <input type="radio" name="filterType" value="bandPass"> Band-pass Filter
+                <input type="radio" name="filterType" value="bandpass"> Band-pass Filter
+            </label>
+
+            <label>Cutoff Frequency
+                <input type="range" id="filterCutoff" min="20" max="10000" step="10" value="1000">
             </label>
 
 

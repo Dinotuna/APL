@@ -1,5 +1,6 @@
 let mySound = null;
 let myEnvelope = null;
+let myFilter = null;
 
 async function main(customFrequency = null) {
   await Tone.start();
@@ -20,7 +21,9 @@ async function main(customFrequency = null) {
   const adsrToggle = document.getElementById("adsrToggle").checked;
   const useHarmonicity = document.getElementById("harmonicityToggle").checked;
   const calculatedHarmonicity = useHarmonicity ? modulationFrequency : (modulationFrequency / frequencyValue);
-  
+  const filterType = document.querySelector('input[name="filterType"]:checked').value;
+  const filterCutoff = parseFloat(document.getElementById("filterCutoff").value);
+
   if (mySound) {
     mySound.stop();
     mySound.dispose();
@@ -29,6 +32,10 @@ async function main(customFrequency = null) {
   if (myEnvelope) {
     myEnvelope.dispose();
     myEnvelope = null;
+  }
+  if (myFilter) {
+    myFilter.dispose();
+    myFilter = null;
   }
 
   switch (modulationType) {
@@ -42,19 +49,36 @@ async function main(customFrequency = null) {
       mySound = generate_wave(selectedWave, frequencyValue, amplitudeValue, durationValue);
       break;
   }
-if (adsrToggle) {
-  myEnvelope = apply_amplitude_envelope(attackInput, decayInput, sustainInput, releaseInput);
-  mySound.connect(myEnvelope);
-  myEnvelope.connect(Tone.Destination);
-  myEnvelope.triggerAttackRelease(durationValue);
-} else {
-    mySound.connect(Tone.Destination);
+  if (filterType !== "none") {
+    myFilter = new Tone.Filter({
+      type: filterType,
+      frequency: filterCutoff,
+      rolloff: -12
+    });
+  }
+
+  let lastNode = mySound;
+
+  if (adsrToggle) {
+    myEnvelope = apply_amplitude_envelope(attackInput, decayInput, sustainInput, releaseInput);
+    mySound.connect(myEnvelope);
+    myEnvelope.triggerAttackRelease(durationValue);
+    lastNode = myEnvelope; 
+  } else {
     mySound.stop("+" + durationValue);
+  }
+
+  if (myFilter) {
+    lastNode.connect(myFilter);
+    myFilter.connect(Tone.Destination);
+  } else {
+    lastNode.connect(Tone.Destination);
+  }
 }
 
 
 
-}
+
 
 document.getElementById("playButton").addEventListener("click", () => {
   if (Tone.context.state === "closed") {
@@ -82,7 +106,7 @@ pianoKeys.forEach((key, index) => {
     const keyFrequency = baseFreqC4 * Math.pow(2, index / 12);
     main(keyFrequency);
   });
-});
+}); 
 
 document.getElementById("modulationFrequency").addEventListener("input", (e) => {
   if (mySound && mySound.harmonicity) {
@@ -107,6 +131,11 @@ document.getElementById("frequencyInput").addEventListener("input", (e) => {
 document.getElementById("amplitudeInput").addEventListener("input", (e) => {
   if (mySound) {
     mySound.volume.value = Tone.gainToDb(parseFloat(e.target.value));
+  }
+});
+document.getElementById("filterCutoff").addEventListener("input", (e) => {
+  if (myFilter) {
+    myFilter.frequency.value = parseFloat(e.target.value);
   }
 });
 
