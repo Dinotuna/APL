@@ -148,6 +148,15 @@ document.getElementById("filterCutoff").addEventListener("input", (e) => {
 });
 
 function generate_wave(waveType, frequency, amplitude, duration) {
+  if (waveType === "noise") {
+    const noise = new Tone.Noise({
+      type: "white",
+      volume: Tone.gainToDb(amplitude),
+    });
+    noise.start();
+    return noise;
+  }
+
   const osc = new Tone.Oscillator({
     type: waveType,
     frequency: frequency,
