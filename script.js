@@ -93,6 +93,14 @@ document.getElementById("stopButton").addEventListener("click", () => {
     mySound.dispose();
     mySound = null;
   }
+  if (myEnvelope) {
+    myEnvelope.dispose();
+    myEnvelope = null;
+  }
+  if (myFilter) {
+    myFilter.dispose();
+    myFilter = null;
+  }
 }); 
 
 const pianoKeys = document.querySelectorAll(".piano-keys");
@@ -177,11 +185,11 @@ function generate_fm_wave(waveType, frequency, amplitude, duration, calculatedHa
   return osc;
 }
 
-function apply_amplitude_envelope(attackInput, decayInput, sustaininput, releaseInput) {
+function apply_amplitude_envelope(attackInput, decayInput, sustainInput, releaseInput) {
   const ampEnv = new Tone.AmplitudeEnvelope({
     attack: attackInput,
     decay: decayInput,
-    sustain: sustaininput,
+    sustain: sustainInput,
     release: releaseInput,
   });
 

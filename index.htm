@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <script src="http://unpkg.com/tone"></script>
+    <script src="https://unpkg.com/tone"></script>
     <script defer src="script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -27,8 +28,7 @@
 
             <select id="selectWave">
 
-                <option value="" disabled selected>Choose a wave</option>
-                <option value="sine">Sine wave</option>
+                <option value="sine" selected>Sine wave</option>
                 <option value="triangle">Triangle wave</option>
                 <option value="square">Square wave</option>
                 <option value="sawtooth">Sawtooth wave</option>
@@ -75,8 +75,7 @@
 
                 <label>
                     <select id="selectModulatorWave">
-                        <option value="" disabled selected>Choose a modulation wave</option>
-                        <option value="sine">Sine wave</option>
+                        <option value="sine" selected>Sine wave</option>
                         <option value="triangle">Triangle wave</option>
                         <option value="square">Square wave</option>
                         <option value="sawtooth">Sawtooth wave</option>     
@@ -121,7 +120,7 @@
                 <input type="radio" name="filterType" value="none" checked> No Filter
             </label>
             <label>
-                <input type="radio" name="filterType" value="lowpass"> Low-pass Filter
+                <input type="radio" id="radio" name="filterType" value="lowpass"> Low-pass Filter
             </label>
             <label>
                 <input type="radio" name="filterType" value="highpass"> High-pass Filter

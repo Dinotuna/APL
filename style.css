@@ -1,18 +1,28 @@
+* {
+  color: #14FFEC;
+  font-family: "inter";
+  font-size: 0.89rem;
+}
+
 body {
-    background-color: whitesmoke;
+  background-color: #212121;
 }
 
 .gridBox {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto auto ;
-
+  grid-template-rows: auto auto;
 }
 
-.waveDiv, .modulationDiv, .adsrControls, .buttonDiv, .pianoContainer, .filterDiv {
+.waveDiv,
+.modulationDiv,
+.adsrControls,
+.buttonDiv,
+.pianoContainer,
+.filterDiv {
   background-color: white;
   border-radius: 5px;
-  border: 1px solid #e5e8ec;
+  border: 1px solid #0D7377;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -22,7 +32,7 @@ body {
   align-items: flex-start;
   grid-column: 1;
   grid-row: 3;
-  background-color: white;
+  background-color: #323232;
   margin: 5px;
   padding: 10px;
 }
@@ -36,7 +46,7 @@ select {
   grid-column: 1 / -1;
   display: flex;
   justify-content: center;
-  background-color: white;
+  background-color: #323232;
   margin: 5px;
   padding: 10px;
 }
@@ -46,22 +56,22 @@ select {
   padding: 4px 8px;
   font-size: 16px;
   border-radius: 10px;
-  border: 1px solid lightgray;
+  border: 1px solid #0D7377;
   cursor: pointer;
-  background-color: white;
+  background-color: #323232;
 }
 
 #playButton {
-  color: black;
-  background-color: white;
+  color: white;
+  background-color: #323232;
 }
 
 #stopButton {
-  background-color: white;
-  color: black;
+  background-color: #323232;
+  color: white;
 }
 .buttonGrow {
-  display: inline-block;    
+  display: inline-block;
   padding: 10px;
   border: 1px solid #333;
   cursor: pointer;
@@ -79,76 +89,75 @@ select {
   flex-direction: column;
   grid-column: 2;
   grid-row: 3;
-  background-color: white;
+  background-color: #323232;
   margin: 5px;
   padding: 10px;
-
 }
 
 .adsrControls {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    grid-column: 3;
-    grid-row: 3;
-    background-color: white;
-    margin: 5px;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  grid-column: 3;
+  grid-row: 3;
+  background-color: #323232;
+  margin: 5px;
+  padding: 10px;
 }
 
 label {
   margin-bottom: 10px;
 }
-select, input {
-  background-color: white;
+select,
+input {
+  background-color: #323232;
   border-radius: 5px;
-  border: 1px solid black;
+  border: 1px solid #0D7377;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 2px;
 }
-.pianoContainer {
-    display: flex;
-    justify-content: center;
-    background-color: white;
-    grid-column: 1 / -1;
-    grid-row: 2;
-    margin: 5px;
-    padding: 10px;
 
+
+.pianoContainer {
+  display: flex;
+  justify-content: center;
+  background-color: #323232;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin: 5px;
+  padding: 10px;
 }
 
 .pianoKeysList {
-    list-style: none;
-    display: flex;
-    padding: 0;
-    
+  list-style: none;
+  display: flex;
+  padding: 0;
 }
 
 .piano-keys {
-    width: 3rem;
-    height: 15rem;
-    position: relative;
-    padding: 2px;
-    cursor: pointer;
-
+  width: 3rem;
+  height: 15rem;
+  position: relative;
+  padding: 2px;
+  cursor: pointer;
 }
 
 .white-key {
-    background-color: #f2e3e3;
-    margin: 0px 0px 8px 8px;
+  background-color: #f2e3e3;
+  margin: 0px 0px 8px 8px;
 }
 
 .black-key {
-    width: 1.5rem;
-    height: 8.5rem;
-    border-radius: 5px;
-    border: 4px solid white;
-    border-top: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    background-color: #000;
-    z-index: 2;
-    margin: 0 -20px 0 -20px;
+  width: 1.5rem;
+  height: 8.5rem;
+  border-radius: 5px;
+  border: 4px solid white;
+  border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-color: #000;
+  z-index: 2;
+  margin: 0 -20px 0 -20px;
 }
 
 .filterDiv {
@@ -157,7 +166,46 @@ select, input {
   align-items: flex-start;
   grid-column: 1;
   grid-row: 4;
-  background-color: white;
+  background-color: #323232;
   margin: 5px;
   padding: 10px;
 }
+
+input[type="radio"],
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid gray;
+  margin: 0 8px 0 0;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  border-radius: 9px;
+}
+
+input[type="radio"]:checked::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #14FFEC;
+}
+
+input[type="checkbox"]:checked::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background-color: #14FFEC;
+}
+
+input[type="number"] {
+  color: black;
+  background-color: #14FFEC;
+}
+
