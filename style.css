@@ -19,7 +19,8 @@ body {
 .adsrControls,
 .buttonDiv,
 .pianoContainer,
-.filterDiv {
+.filterDiv,
+.tracksDiv {
   background-color: white;
   border-radius: 5px;
   border: 1px solid #0D7377;
@@ -51,7 +52,7 @@ select {
   padding: 10px;
 }
 
-.buttonDiv button {
+.buttonDiv button, .tracksDiv button {
   margin: 5px;
   padding: 4px 8px;
   font-size: 16px;
@@ -169,6 +170,15 @@ input {
   background-color: #323232;
   margin: 5px;
   padding: 10px;
+}
+
+.tracksDiv {
+  display: flex;
+  grid-column: span 2;
+  grid-row: 4;
+  background-color: #323232;
+  margin: 5px;
+  padding: 10px;  
 }
 
 input[type="radio"],

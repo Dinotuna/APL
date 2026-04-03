@@ -74,6 +74,8 @@ async function main(customFrequency = null) {
   } else {
     lastNode.connect(Tone.Destination);
   }
+
+  console.log(lastNode);
 }
 
 
@@ -115,6 +117,23 @@ pianoKeys.forEach((key, index) => {
     main(keyFrequency);
   });
 }); 
+
+const keyboardMap = ['a', 'w', 's', 'e', 'd', 'f', 't', 'g', 'y', 'h', 'u', 'j', 'k', 'o', 'l', 'p', 'ö', 'å', 'ä']; 
+
+document.addEventListener("keydown", (e) => {
+  if (e.repeat) return; // Prevent multiple triggers while holding down the key
+  
+  const index = keyboardMap.indexOf(e.key.toLowerCase());
+  
+  if (index !== -1) {
+    if (Tone.context.state === "closed") {
+      Tone.context = new Tone.Context();
+    }
+    const baseFreqC4 = 261.63; 
+    const keyFrequency = baseFreqC4 * Math.pow(2, index / 12);
+    main(keyFrequency);
+  }
+});
 
 document.getElementById("modulationFrequency").addEventListener("input", (e) => {
   if (mySound && mySound.harmonicity) {
