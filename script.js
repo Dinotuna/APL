@@ -109,6 +109,7 @@ const pianoKeys = document.querySelectorAll(".piano-keys");
 
 pianoKeys.forEach((key, index) => {
   key.addEventListener("mousedown", () => {
+    key.classList.add("active"); // <-- This was missing
     if (Tone.context.state === "closed") {
       Tone.context = new Tone.Context();
     }
@@ -116,22 +117,33 @@ pianoKeys.forEach((key, index) => {
     const keyFrequency = baseFreqC4 * Math.pow(2, index / 12);
     main(keyFrequency);
   });
+
+  key.addEventListener("mouseup", () => key.classList.remove("active"));
+  key.addEventListener("mouseleave", () => key.classList.remove("active"));
 }); 
 
 const keyboardMap = ['a', 'w', 's', 'e', 'd', 'f', 't', 'g', 'y', 'h', 'u', 'j', 'k', 'o', 'l', 'p', 'ö', 'å', 'ä']; 
 
 document.addEventListener("keydown", (e) => {
-  if (e.repeat) return; // Prevent multiple triggers while holding down the key
+  if (e.repeat) return;
   
   const index = keyboardMap.indexOf(e.key.toLowerCase());
   
   if (index !== -1) {
+    pianoKeys[index].classList.add("active");
     if (Tone.context.state === "closed") {
       Tone.context = new Tone.Context();
     }
     const baseFreqC4 = 261.63; 
     const keyFrequency = baseFreqC4 * Math.pow(2, index / 12);
     main(keyFrequency);
+  }
+});
+
+document.addEventListener("keyup", (e) => {
+  const index = keyboardMap.indexOf(e.key.toLowerCase());
+  if (index !== -1) {
+    pianoKeys[index].classList.remove("active");
   }
 });
 

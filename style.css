@@ -219,3 +219,6 @@ input[type="number"] {
   background-color: #14FFEC;
 }
 
+.active {
+  background-color: #ed4512 !important;
+}
