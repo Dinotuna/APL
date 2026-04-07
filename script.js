@@ -1,8 +1,10 @@
 let mySound = null;
 let myEnvelope = null;
 let myFilter = null;
+const activeVoices = {};
 
-async function main(customFrequency = null) {
+
+async function main(customFrequency = null, keyId = "main") {
   await Tone.start();
 
   const selectedWave = document.getElementById("selectWave").value;
@@ -24,19 +26,16 @@ async function main(customFrequency = null) {
   const filterType = document.querySelector('input[name="filterType"]:checked').value;
   const filterCutoff = parseFloat(document.getElementById("filterCutoff").value);
 
-  if (mySound) {
-    mySound.stop();
-    mySound.dispose();
-    mySound = null;
+  if (activeVoices[keyId]) {
+    const oldVoice = activeVoices[keyId];
+    if (oldVoice.sound) { oldVoice.sound.stop(); oldVoice.sound.dispose(); }
+    if (oldVoice.env) { oldVoice.env.dispose(); }
+    if (oldVoice.filter) { oldVoice.filter.dispose(); }
   }
-  if (myEnvelope) {
-    myEnvelope.dispose();
-    myEnvelope = null;
-  }
-  if (myFilter) {
-    myFilter.dispose();
-    myFilter = null;
-  }
+
+  mySound = null;
+  myEnvelope = null;
+  myFilter = null;
 
   switch (modulationType) {
     case "am":
@@ -75,6 +74,8 @@ async function main(customFrequency = null) {
     lastNode.connect(Tone.Destination);
   }
 
+  activeVoices[keyId] = { sound: mySound, env: myEnvelope, filter: myFilter };
+
   console.log(lastNode);
 }
 
@@ -86,23 +87,17 @@ document.getElementById("playButton").addEventListener("click", () => {
   if (Tone.context.state === "closed") {
     Tone.context = new Tone.Context();
   }
-  main();
+  main(null, "main");
 });
 
+
 document.getElementById("stopButton").addEventListener("click", () => {
-  if (mySound) {
-    mySound.stop();
-    mySound.dispose();
-    mySound = null;
-  }
-  if (myEnvelope) {
-    myEnvelope.dispose();
-    myEnvelope = null;
-  }
-  if (myFilter) {
-    myFilter.dispose();
-    myFilter = null;
-  }
+  Object.values(activeVoices).forEach(voice => {
+    if (voice.sound) { voice.sound.stop(); voice.sound.dispose(); }
+    if (voice.env) voice.env.dispose();
+    if (voice.filter) voice.filter.dispose();
+  });
+  for (let key in activeVoices) delete activeVoices[key];
 }); 
 
 const pianoKeys = document.querySelectorAll(".piano-keys");
@@ -122,7 +117,7 @@ pianoKeys.forEach((key, index) => {
   key.addEventListener("mouseleave", () => key.classList.remove("active"));
 }); 
 
-const keyboardMap = ['a', 'w', 's', 'e', 'd', 'f', 't', 'g', 'y', 'h', 'u', 'j', 'k', 'o', 'l', 'p', 'ö', 'å', 'ä']; 
+const keyboardMap = ['a', 'w', 's', 'e', 'd', 'r', 'f', 'g', 't', 'h', 'y', 'j', 'k', 'u', 'l', 'i', 'ö', 'o', 'ä',"'",'å']; 
 
 document.addEventListener("keydown", (e) => {
   if (e.repeat) return;
@@ -136,7 +131,7 @@ document.addEventListener("keydown", (e) => {
     }
     const baseFreqC4 = 261.63; 
     const keyFrequency = baseFreqC4 * Math.pow(2, index / 12);
-    main(keyFrequency);
+    main(keyFrequency, "piano_" + index); 
   }
 });
 
