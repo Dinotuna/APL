@@ -15,6 +15,7 @@ async function main(customFrequency = null, keyId = "main") {
   const durationValue = parseFloat(document.getElementById("durationInput").value);
   const modulationType = document.querySelector('input[name="modulationType"]:checked').value;
   const modulationFrequency = parseFloat(document.getElementById("modulationFrequency").value);
+  const modIntensity = parseFloat(document.getElementById("modulationIntensity").value); 
   const modWave = document.getElementById("selectModulatorWave").value;
   const attackInput = parseFloat(document.getElementById("attackInput").value);
   const decayInput = parseFloat(document.getElementById("decayInput").value);
@@ -42,7 +43,7 @@ async function main(customFrequency = null, keyId = "main") {
       mySound = generate_am_wave(selectedWave, frequencyValue, amplitudeValue, durationValue, calculatedHarmonicity, modWave);
       break;
     case "fm":
-      mySound = generate_fm_wave(selectedWave, frequencyValue, amplitudeValue, durationValue, calculatedHarmonicity, modWave);
+      mySound = generate_fm_wave(selectedWave, frequencyValue, amplitudeValue, durationValue, calculatedHarmonicity, modWave, modIntensity);
       break;
     default:
       mySound = generate_wave(selectedWave, frequencyValue, amplitudeValue, durationValue);
@@ -104,7 +105,7 @@ const pianoKeys = document.querySelectorAll(".piano-keys");
 
 pianoKeys.forEach((key, index) => {
   key.addEventListener("mousedown", () => {
-    key.classList.add("active"); // <-- This was missing
+    key.classList.add("active");
     if (Tone.context.state === "closed") {
       Tone.context = new Tone.Context();
     }
@@ -153,6 +154,12 @@ document.getElementById("modulationFrequency").addEventListener("input", (e) => 
       const freq = parseFloat(document.getElementById("frequencyInput").value);
       mySound.harmonicity.value = val / freq;
     }
+  }
+});
+
+document.getElementById("modulationIntensity").addEventListener("input", (e) => {
+  if (mySound && mySound.modulationIndex) {
+    mySound.modulationIndex.value = parseFloat(e.target.value);
   }
 });
 
@@ -206,14 +213,14 @@ function generate_am_wave(waveType, frequency, amplitude, duration, calculatedHa
   return osc;
 }
 
-function generate_fm_wave(waveType, frequency, amplitude, duration, calculatedHarmonicity, modWave) {
+function generate_fm_wave(waveType, frequency, amplitude, duration, calculatedHarmonicity, modWave, modIntensity) {
   const osc = new Tone.FMOscillator({
     type: waveType,
     frequency: frequency,
     volume: Tone.gainToDb(amplitude),
     harmonicity: calculatedHarmonicity,
     modulationType: modWave,
-    modulationIndex: 10,
+    modulationIndex: modIntensity,
   });
 
   osc.start();
