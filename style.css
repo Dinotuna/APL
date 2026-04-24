@@ -1,11 +1,11 @@
 * {
-  color: #14FFEC;
-  font-family: "inter";
+  color: #333333;
+  font-family: "inter", sans-serif;
   font-size: 0.89rem;
 }
 
 body {
-  background-color: #212121;
+  background-color: #f4f5f7;
 }
 
 .gridBox {
@@ -21,10 +21,10 @@ body {
 .pianoContainer,
 .filterDiv,
 .tracksDiv {
-  background-color: white;
+  background-color: #ffffff; 
   border-radius: 5px;
-  border: 1px solid #0D7377;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d1d5db;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
 }
 
 .waveDiv {
@@ -33,7 +33,6 @@ body {
   align-items: flex-start;
   grid-column: 1;
   grid-row: 3;
-  background-color: #323232;
   margin: 5px;
   padding: 10px;
 }
@@ -47,42 +46,39 @@ select {
   grid-column: 1 / -1;
   display: flex;
   justify-content: center;
-  background-color: #323232;
   margin: 5px;
   padding: 10px;
 }
 
 .buttonDiv button, .tracksDiv button {
   margin: 5px;
-  padding: 4px 8px;
+  padding: 6px 12px;
   font-size: 16px;
-  border-radius: 10px;
-  border: 1px solid #0D7377;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
   cursor: pointer;
-  background-color: #323232;
+  background-color: #ffffff;
+  color: #333333;
 }
 
 #playButton {
-  color: white;
-  background-color: #323232;
+  background-color: #e5e7eb; 
 }
 
 #stopButton {
-  background-color: #323232;
-  color: white;
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-color: #fca5a5;
 }
+
 .buttonGrow {
   display: inline-block;
-  padding: 10px;
-  border: 1px solid #333;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  transform-origin: center;
+  transition: transform 0.1s ease;
   will-change: transform;
 }
 
 .buttonGrow:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .modulationDiv {
@@ -90,7 +86,6 @@ select {
   flex-direction: column;
   grid-column: 2;
   grid-row: 3;
-  background-color: #323232;
   margin: 5px;
   padding: 10px;
 }
@@ -101,7 +96,6 @@ select {
   justify-content: space-around;
   grid-column: 3;
   grid-row: 3;
-  background-color: #323232;
   margin: 5px;
   padding: 10px;
 }
@@ -109,24 +103,22 @@ select {
 label {
   margin-bottom: 10px;
 }
+
 select,
 input {
-  background-color: #323232;
-  border-radius: 5px;
-  border: 1px solid #0D7377;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 2px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+  padding: 4px;
 }
-
 
 .pianoContainer {
   display: flex;
   justify-content: center;
-  background-color: #323232;
   grid-column: 1 / -1;
   grid-row: 2;
   margin: 5px;
-  padding: 10px;
+  padding: 20px;
 }
 
 .pianoKeysList {
@@ -144,19 +136,17 @@ input {
 }
 
 .white-key {
-  background-color: #f2e3e3;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
   margin: 0px 0px 8px 8px;
 }
 
 .black-key {
   width: 1.5rem;
   height: 8.5rem;
-  border-radius: 5px;
-  border: 4px solid white;
-  border-top: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  background-color: #000;
+  border-radius: 0 0 4px 4px;
+  border: 1px solid #000;
+  background-color: #1a1a1a;
   z-index: 2;
   margin: 0 -20px 0 -20px;
 }
@@ -167,7 +157,6 @@ input {
   align-items: flex-start;
   grid-column: 1;
   grid-row: 4;
-  background-color: #323232;
   margin: 5px;
   padding: 10px;
 }
@@ -176,7 +165,6 @@ input {
   display: flex;
   grid-column: span 2;
   grid-row: 4;
-  background-color: #323232;
   margin: 5px;
   padding: 10px;  
 }
@@ -185,40 +173,58 @@ input[type="radio"],
 input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 2px solid gray;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #9ca3af;
+  background-color: #ffffff;
   margin: 0 8px 0 0;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 input[type="radio"] {
-  border-radius: 9px;
+  border-radius: 50%;
 }
 
-input[type="radio"]:checked::after {
-  content: "";
-  display: block;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: #14FFEC;
+input[type="checkbox"] {
+  border-radius: 3px;
 }
 
+input[type="radio"]:checked, 
+input[type="checkbox"]:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+input[type="radio"]:checked::after,
 input[type="checkbox"]:checked::after {
   content: "";
   display: block;
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
-  background-color: #14FFEC;
+  background-color: #ffffff;
+}
+
+input[type="radio"]:checked::after {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+input[type="checkbox"]:checked::after {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
 }
 
 input[type="number"] {
-  color: black;
-  background-color: #14FFEC;
+  color: #333333;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  padding: 4px;
 }
 
 .active {
-  background-color: #ed4512 !important;
+  background-color: #007bff !important;
+  opacity: 0.8;
 }
